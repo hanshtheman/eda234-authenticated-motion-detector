@@ -1,0 +1,28 @@
+# Recreated locally from Tcl; never sync Vivado output folders.
+/build/
+/tmp/
+/.Xil/
+*.jou
+*.log
+*.str
+*.wdb
+*.wlf
+*.vcd
+*.bit
+*.bin
+*.dcp
+*.xpr
+*.runs/
+*.cache/
+*.hw/
+*.sim/
+*.gen/
+*.ip_user_files/
+# Keep real source, IP configuration (.xci), Tcl and XDC tracked.
+/.local/
+.env
+.env.*
+*.pem
+*.key
+Thumbs.db
+.DS_Store
