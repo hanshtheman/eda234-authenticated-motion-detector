@@ -32,5 +32,6 @@ Source files are listed in `scripts/sources.tcl`. Generated files are excluded f
 
 ## Status
 
-Project creation checked in Vivado 2019.1. No RTL or testbenches yet.
+UART TX and its self-checking testbench are implemented. Tests pass at 9600 and 115200 baud in ModelSim SE-64 2020.4. UART RX is not implemented yet.
+Vivado 2025.2 validation, synthesis and board tests are pending.
 The XDC template is disabled pending the pin map.
