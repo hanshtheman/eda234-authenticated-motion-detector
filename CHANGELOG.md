@@ -1,5 +1,9 @@
 # Development log
 
+## 2026-11-23
+
+Tested the UART button demo on the Nexys A7-100T at school. Reported working as expected. Added short comments to the demo modules; logic unchanged.
+
 ## 2026-11-21
 
 TX-to-RX loopback passed at 9600 and 115200 baud.

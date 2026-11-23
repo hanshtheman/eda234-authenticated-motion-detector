@@ -26,6 +26,7 @@ architecture rtl of uart_tx is
     --CLKS_PERS_BIT is the rounded number of how much cycles it will take per UART bit
     constant CLKS_PER_BIT : positive :=
         (CLK_FREQ_HZ + BAUD_RATE / 2) / BAUD_RATE;
+    -- One frame: idle high -> start low -> bits 0 to 7 -> stop high.
     type state_t is (IDLE, START_BIT, DATA_BITS, STOP_BIT);
     signal state : state_t;
 
@@ -58,6 +59,7 @@ begin
                         bit_timer <= 0;
 
                         if tx_start = '1' then
+                            -- Save the byte so later input changes cannot affect this frame.
                             data_reg <= tx_data;
                             busy_reg <= '1';
                             tx       <= '0';
@@ -65,6 +67,7 @@ begin
                         end if;
                 --hold start bit low for a bit period
                     when START_BIT =>
+                        -- Counting 0 through CLKS_PER_BIT - 1 gives one full bit.
                         if bit_timer = CLKS_PER_BIT - 1 then
                             bit_timer <= 0;
                             bit_index <= 0;

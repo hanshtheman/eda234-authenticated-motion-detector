@@ -1,6 +1,7 @@
 library ieee;
 use ieee.std_logic_1164.all;
 
+-- Top-level wiring: buttons -> debounce -> message controller -> UART TX.
 entity uart_button_demo is
     generic (
         CLK_FREQ_HZ    : positive := 100_000_000;
@@ -18,6 +19,7 @@ entity uart_button_demo is
 end entity uart_button_demo;
 
 architecture rtl of uart_button_demo is
+    -- Start in reset, then synchronize the active-high center button.
     signal reset_meta : std_logic := '1';
     signal reset_sync : std_logic := '1';
     signal send_a     : std_logic;
@@ -34,6 +36,7 @@ begin
         end if;
     end process;
 
+    -- Each button becomes a separate one-clock request pulse.
     left_button : entity work.button_debounce
         generic map (STABLE_CYCLES => DEBOUNCE_CYCLES)
         port map (
@@ -48,6 +51,7 @@ begin
             button => btn_right, pressed => send_b
         );
 
+    -- The XDC connects uart_tx to JA pin 1 and led_busy to LED0.
     messages : entity work.uart_message_tx
         generic map (
             CLK_FREQ_HZ => CLK_FREQ_HZ,
